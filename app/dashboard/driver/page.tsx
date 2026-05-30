@@ -99,7 +99,7 @@ export default function Driverform() {
     }
   }
 
-  const deleteDriver = async (id) => {
+  const deleteDriver = async (id: string) => {
     const { error } = await supabase.from("drivers").delete().eq("id", id);
 
     if (error) {
