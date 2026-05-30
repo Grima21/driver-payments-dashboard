@@ -20,8 +20,7 @@ export default function Driverform() {
   const [dailyRate, setDailyRate] = useState("");
   const [formError, setFormError] = useState("");
   const [drivers, setDrivers] = useState<Driver[]>([]);
-  const [editingId, setEditingId] = useState(null);
-
+  const [editingId, setEditingId] = useState<number | null>(null);
   async function fetchDrivers() {
     try {
       const { data, error } = await supabase.from("drivers").select("*");
@@ -99,7 +98,7 @@ export default function Driverform() {
     }
   }
 
-  const deleteDriver = async (id: string) => {
+  const deleteDriver = async (id: number) => {
     const { error } = await supabase.from("drivers").delete().eq("id", id);
 
     if (error) {
@@ -109,12 +108,12 @@ export default function Driverform() {
     fetchDrivers();
   };
 
-  function handleEdit(driver) {
+  function handleEdit(driver: Driver) {
     setEditingId(driver.id);
     setName(driver.name);
     setPhone(driver.phone);
-    setUnitNumber(driver.vehicle_unit);
-    setDailyRate(driver.daily_rate);
+    setUnitNumber(driver.vehicle_unit ?? "");
+    setDailyRate(String(driver.daily_rate ?? ""));
   }
 
   function handleCancelEdit() {

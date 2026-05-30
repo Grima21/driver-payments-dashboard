@@ -4,14 +4,27 @@ import { supabase } from "@/lib/supabase";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
+interface Driver {
+  id: string;
+  name: string;
+  daily_rate: number;
+}
+
+interface Payment {
+  id: string;
+  driver_id: string;
+  payment_date: string;
+  amount: number;
+}
+
 export default function PaymentPage() {
-  const [payment, setPayment] = useState([]);
-  const [drivers, setDrivers] = useState([]);
-  const [selectedDriver, setSelectedDriver] = useState(null);
+  const [payment, setPayment] = useState<Payment[]>([]);
+  const [drivers, setDrivers] = useState<Driver[]>([]);
+  const [selectedDriver, setSelectedDriver] = useState<Driver | null>(null);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
   const [loading, setLoading] = useState(false);
-  const [checkedCells, setCheckedCells] = useState({});
+  const [checkedCells, setCheckedCells] = useState<Record<string, boolean>>({});
 
   async function fetchDriver() {
     try {
@@ -58,7 +71,7 @@ export default function PaymentPage() {
     }
   }
   // Función para procesar el pago de un conductor
-  async function handleCellPayment(driver, date) {
+  async function handleCellPayment(driver: Driver, date: string) {
     // Verificar si el pago ya ha sido procesado para hoy
     try {
       setLoading(true);
@@ -106,12 +119,12 @@ export default function PaymentPage() {
   }
 
   // Función para obtener el nombre del conductor a partir de su ID
-  function getDriverName(driverId) {
+  function getDriverName(driverId: string) {
     const driver = drivers.find((d) => d.id === driverId);
     return driver ? driver.name : "Unknown Driver;";
   }
   // Función para eliminar un pago
-  const deletePayment = async (paymenId) => {
+  const deletePayment = async (paymenId: string) => {
     try {
       const { error } = await supabase
         .from("payments")
@@ -136,21 +149,21 @@ export default function PaymentPage() {
   for (let day = 1; day <= daysInMonth; day++) {
     date.push(`2026-06-${day.toString().padStart(2, "0")}`);
   }
-  const formatDate = (dateString) => {
-    const options = {
-      weekday: "long",
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    };
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+        weekday: "long",
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      };
     const formatted = new Date(dateString + "T00:00:00").toLocaleDateString(
       "es-ES",
       options,
     );
     return formatted.charAt(0).toUpperCase() + formatted.slice(1);
   };
-  const cellKey = (driverId, date) => `${driverId}-${date}`;
-  const handleCellCheck = (driverId, date) => {
+  const cellKey = (driverId: string, date: string) => `${driverId}-${date}`;
+  const handleCellCheck = (driverId: string, date: string) => {
     const key = cellKey(driverId, date);
     setCheckedCells((prev) => ({
       ...prev,

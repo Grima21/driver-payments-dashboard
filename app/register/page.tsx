@@ -1,7 +1,12 @@
 "use client";
 import { supabase } from "@/lib/supabase";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
+
+type FormErrors = {
+  email?: string;
+  password?: string;
+};
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
