@@ -124,11 +124,11 @@ export default function Driverform() {
     setDailyRate("");
   }
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.14),_transparent_35%),linear-gradient(180deg,#020617_0%,#0f172a_100%)] py-12">
-      <div className="max-w-7xl mx-auto px-6">
+    <div className="w-full bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.14),_transparent_35%),linear-gradient(180deg,#020617_0%,#0f172a_100%)] py-12">
+      <div className="w-full  max-w-7xl mx-auto px-6">
         <Link
           href={"/dashboard/payment"}
-          className="flex items-center justify-center gap-2 text-sky-300 mb-4 text-sm cursor-pointer hover:text-sky-500"
+          className="flex items-center justify-center gap-2 text-sky-300 mb-4 text-xs  md:text-sm cursor-pointer hover:text-sky-500"
         >
           <ArrowLeft /> Return to the payment table
         </Link>
@@ -136,7 +136,7 @@ export default function Driverform() {
           <p className="inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-sky-300 shadow-sm shadow-sky-500/20">
             Driver Dashboard
           </p>
-          <h1 className="mt-6 text-4xl sm:text-5xl font-bold text-white">
+          <h1 className="mt-6 text-2xl md:text-4xl font-bold text-white">
             {editingId ? "Edit Driver Details" : "Register a New Driver"}
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-gray-300 text-base sm:text-lg">

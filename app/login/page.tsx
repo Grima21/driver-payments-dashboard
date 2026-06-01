@@ -73,25 +73,27 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="max-w-375 h-auto mx-auto py-10 ">
-      <div className="flex flex-col justify-center items-center gap-4 mb-8">
-        <h1 className="text-4xl font-bold">Welcome Back</h1>
-        <p className="text-lg text-gray-500">
+    <div className=" w-full max-w-7xl h-full mx-auto py-10 mt-10 md:px-4  ">
+      <div className="flex flex-col justify-center items-center gap-4 mb-8 text-center">
+        <h1 className=" text-2xl md:text-3xl lg:text-4xl  font-bold text-center">
+          Welcome Back
+        </h1>
+        <p className="text-base md:text-lg text-gray-500">
           Please enter your credentials to access your account.
         </p>
       </div>
 
-      <div className="w-125 h-auto py-5 border-2 border-[#27272a] rounded-lg flex flex-col gap-6 px-5 justify-center  mx-auto">
+      <div className=" w-full max-w-125 h-auto py-5 border-2 border-[#27272a] rounded-lg flex flex-col gap-6 px-5 justify-center  mx-auto">
         <div>
-          <h2 className="text-xl font-bold mb-2">Sign In</h2>
-          <p className="text-md text-gray-500 mb-2">
+          <h2 className="text-lg md:text-xl font-bold mb-2">Sign In</h2>
+          <p className="text-base md:text-md text-gray-500 mb-2">
             Choose your preferred sign in method
           </p>
-          <div className="flex gap-4">
-            <button className="bg-[#18181b]  w-full h-9 text-md text-white rounded-lg cursor-pointer hover:bg-[#27272a]">
+          <div className="flex  gap-4">
+            <button className="bg-[#18181b]  w-full h-9 text-base md:text-md text-white rounded-lg cursor-pointer hover:bg-[#27272a]">
               Email
             </button>
-            <button className="w-full bg-[#18181b] h-9  text-md text-white rounded-lg cursor-pointer hover:bg-[#27272a] ">
+            <button className="w-full bg-[#18181b] h-9  text-base md:text-md text-white rounded-lg cursor-pointer hover:bg-[#27272a] ">
               {" "}
               Google
             </button>
@@ -99,11 +101,13 @@ export default function LoginPage() {
         </div>
         <div className="flex items-center">
           <div className="border-t border-gray-500 grow"></div>
-          <span className="mx-4 text-gray-500">Or continue with</span>
+          <span className="text-base md:text-md mx-4 text-gray-500">
+            Or continue with
+          </span>
           <div className="border-t border-gray-500 grow"></div>
         </div>
         <form noValidate onSubmit={handleSubmit} className="flex flex-col">
-          <label className="text-md mb-2" htmlFor="email">
+          <label className="text-base md:text-md mb-2" htmlFor="email">
             Email
           </label>
 
@@ -115,8 +119,8 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {error.email && <p className="text-red-500 mt-1">{error.email}</p>}
-          <label htmlFor="password" className="text-md mb-2">
+          {error.email && <p className="text-red-500 mb-1.5">{error.email}</p>}
+          <label htmlFor="password" className="text-base md:text-md mb-2">
             Password
           </label>
           <input
@@ -133,11 +137,11 @@ export default function LoginPage() {
           >
             Continue
           </button>
-          <p className="text-red-500 mt-2 min-h-5">{error.password}</p>
-          {authError && <p className="text-red-500 mt-2">{authError}</p>}
+          <p className="text-red-500  min-h-5 mt-4">{error.password}</p>
+          {authError && <p className="text-red-500 mt-4">{authError}</p>}
           {successMessage && <p className="text-green-500">{successMessage}</p>}
         </form>
-        <p className="text-center text-md text-gray-500">
+        <p className="text-center text-base md:text-md text-gray-500">
           Don`t have an account?{" "}
           <a
             href="/register"
@@ -147,7 +151,7 @@ export default function LoginPage() {
           </a>
         </p>
       </div>
-      <p className="text-center text-sm text-gray-500 mt-8">
+      <p className="text-center text-sm text-gray-500 mt-4">
         By clicking continue, you agree to our
         <a className="text-gray-500 underline hover:text-gray-300" href="#">
           {" "}

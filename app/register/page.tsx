@@ -65,25 +65,27 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="max-w-375 h-auto mx-auto py-10 ">
-      <div className="flex flex-col justify-center items-center gap-4 mb-8">
-        <h1 className="text-4xl font-bold">Create Account</h1>
-        <p className="text-lg text-gray-500">
+    <div className="w-full max-w-375 h-full mx-auto py-10 ">
+      <div className="flex flex-col justify-center items-center gap-4 mb-8 text-center">
+        <h1 className="text-2xl md:text-4xl font-bold text-center">
+          Create Account
+        </h1>
+        <p className="text-base md:text-lg text-gray-500">
           Please enter your credentials to create an account.
         </p>
       </div>
 
-      <div className="w-125 h-auto py-5 border-2 border-[#27272a] rounded-lg flex flex-col gap-6 px-5 justify-center  mx-auto">
+      <div className="w-full max-w-125 h-full py-5 border-2 border-[#27272a] rounded-lg flex flex-col gap-6 px-5 justify-center  mx-auto">
         <div>
-          <h2 className="text-xl font-bold mb-2">Sign Up</h2>
-          <p className="text-md text-gray-500 mb-2">
+          <h2 className="text-lg md:text-xl font-bold mb-2">Sign Up</h2>
+          <p className=" text-base md:text-md text-gray-500 mb-2">
             Choose your preferred sign up method
           </p>
           <div className="flex gap-4">
-            <button className="bg-[#18181b]  w-full h-9 text-md text-white rounded-lg cursor-pointer hover:bg-[#27272a]">
+            <button className="bg-[#18181b]  w-full h-9 tex-base md:text-md text-white rounded-lg cursor-pointer hover:bg-[#27272a]">
               Email
             </button>
-            <button className="w-full bg-[#18181b] h-9  text-md text-white rounded-lg cursor-pointer hover:bg-[#27272a] ">
+            <button className="w-full bg-[#18181b] h-9 text-base md:text-md text-white rounded-lg cursor-pointer hover:bg-[#27272a] ">
               {" "}
               Google
             </button>
@@ -107,7 +109,9 @@ export default function RegisterPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {error.email && <p className="text-red-500 mt-1">{error.email}</p>}
+          {error.email && (
+            <p className="text-red-500 mt-1 mb-1.5">{error.email}</p>
+          )}
           <label htmlFor="password" className="text-md mb-2">
             Password
           </label>
@@ -125,7 +129,9 @@ export default function RegisterPage() {
           >
             Continue
           </button>
-          <p className="text-red-500 mt-2 min-h-5">{error.password}</p>
+          {error.password && (
+            <p className="text-red-500 mt-2 min-h-5">{error.password}</p>
+          )}
           {authError && <p className="text-red-500 mt-2">{authError}</p>}
           {successMessage && (
             <p className="text-green-500 mt-2">{successMessage}</p>

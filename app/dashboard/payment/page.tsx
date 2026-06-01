@@ -151,11 +151,11 @@ export default function PaymentPage() {
   }
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = {
-        weekday: "long",
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      };
+      weekday: "long",
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    };
     const formatted = new Date(dateString + "T00:00:00").toLocaleDateString(
       "es-ES",
       options,
@@ -183,9 +183,9 @@ export default function PaymentPage() {
     .filter((p) => p.payment_date === today)
     .reduce((total, p) => total + p.amount, 0);
   return (
-    <div className="w-full h-full p-8 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),transparent_40%),linear-gradient(180deg,#081122_0%,#0f172a_100%)]">
-      <div className="max-w-375 mx-auto">
-        <h1 className="text-3xl font-bold text-white mx-auto">
+    <div className="w-full h-full p-4 md:p-8 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),transparent_40%),linear-gradient(180deg,#081122_0%,#0f172a_100%)]">
+      <div className="w-full max-w-375 mx-auto mt-10 md:mt-16 mb-8 ">
+        <h1 className="text-3xl font-bold text-white  mb-2 md:text-4xl ">
           Gestion de Pagos
         </h1>
         <p className="text-[#8f8f8f] mt-2">
@@ -193,7 +193,7 @@ export default function PaymentPage() {
         </p>
 
         {/* EStadistica de la tabla */}
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-8">
           <div className="bg-[#041b18] p-12 rounded-xl border border-green-900">
             <h2 className="text-lg font-semibold text-gray-400">
               Total pagado del Mes
@@ -230,8 +230,8 @@ export default function PaymentPage() {
         </div>
 
         {/*Tabla de pagos*/}
-        <div className="w-full mt-4 bg-[#0f1216] rounded-xl p-6 border border-gray-900 flex items-center justify-between">
-          <div className="flex gap-4 items-center">
+        <div className="w-full mt-4 bg-[#0f1216] rounded-xl p-6 border border-gray-900 flex flex-col md:flex-row gap-4 items-center justify-between">
+          <div className="flex gap-4 items-center mb-4 md:mb-0">
             <button className="bg-black text-white px-2 py-2 rounded-lg border border-gray-600 cursor-pointer hover:bg-neutral-800 transition duration-300 ease-in-out">
               {" "}
               <MoveLeft />{" "}
