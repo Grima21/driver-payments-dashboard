@@ -2,7 +2,6 @@
 import { MoveLeft, MoveRight } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useState, useEffect } from "react";
-import Link from "next/link";
 
 interface Driver {
   id: string;
@@ -183,7 +182,7 @@ export default function PaymentPage() {
     .filter((p) => p.payment_date === today)
     .reduce((total, p) => total + p.amount, 0);
   return (
-    <div className="w-full h-full p-4 md:p-8 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),transparent_40%),linear-gradient(180deg,#081122_0%,#0f172a_100%)]">
+    <div className="w-full min-h-screen p-4 pt-16 lg:pt-4 md:p-8 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),transparent_40%),linear-gradient(180deg,#081122_0%,#0f172a_100%)]">
       <div className="w-full max-w-375 mx-auto mt-10 md:mt-16 mb-8 ">
         <h1 className="text-3xl font-bold text-white  mb-2 md:text-4xl ">
           Gestion de Pagos
@@ -241,14 +240,6 @@ export default function PaymentPage() {
               {" "}
               <MoveRight />{" "}
             </button>
-          </div>
-          <div>
-            <Link
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg border border-gray-600 cursor-pointer hover:bg-blue-600 transition duration-300 ease-in-out"
-              href={"/dashboard/driver"}
-            >
-              Gestionar Conductores
-            </Link>
           </div>
         </div>
 

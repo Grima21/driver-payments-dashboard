@@ -2,8 +2,6 @@
 
 import { useState, useEffect, FormEvent } from "react";
 import { supabase } from "@/lib/supabase";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 
 interface Driver {
   id: number;
@@ -124,14 +122,8 @@ export default function Driverform() {
     setDailyRate("");
   }
   return (
-    <div className="w-full bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.14),_transparent_35%),linear-gradient(180deg,#020617_0%,#0f172a_100%)] py-12">
+    <div className="w-full min-h-screen pt-16 lg:pt-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.14),_transparent_35%),linear-gradient(180deg,#020617_0%,#0f172a_100%)] py-12">
       <div className="w-full  max-w-7xl mx-auto px-6">
-        <Link
-          href={"/dashboard/payment"}
-          className="flex items-center justify-center gap-2 text-sky-300 mb-4 text-xs  md:text-sm cursor-pointer hover:text-sky-500"
-        >
-          <ArrowLeft /> Return to the payment table
-        </Link>
         <div className="text-center mb-10">
           <p className="inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-sky-300 shadow-sm shadow-sky-500/20">
             Driver Dashboard
