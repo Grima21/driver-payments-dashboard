@@ -9,6 +9,7 @@ import {
   LogOut,
   Menu,
   X,
+  Wrench,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -22,6 +23,11 @@ const navItems = [
     label: "Conductores",
     href: "/dashboard/driver",
     icon: Users,
+  },
+  {
+    label: "Gastos",
+    href: "/dashboard/expenses",
+    icon: Wrench,
   },
 ];
 
