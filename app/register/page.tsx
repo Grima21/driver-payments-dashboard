@@ -1,5 +1,5 @@
 "use client";
-import { createClient } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 

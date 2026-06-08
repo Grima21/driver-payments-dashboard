@@ -1,6 +1,6 @@
 "use client";
 import { MoveLeft, MoveRight } from "lucide-react";
-import { createClient } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
@@ -27,8 +27,9 @@ export default function PaymentPage() {
   const [checkedCells, setCheckedCells] = useState<Record<string, boolean>>({});
 
   async function fetchDriver() {
+    const supabase = createClient();
     try {
-      const { data, error } = await createClient()
+      const { data, error } = await supabase
         .from("drivers")
         .select("id, name, daily_rate");
       if (error) {
@@ -42,6 +43,7 @@ export default function PaymentPage() {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchDriver();
     fetchPayment();
   }, []);
@@ -59,7 +61,8 @@ export default function PaymentPage() {
   // Función para obtener los pagos de la base de datos
   async function fetchPayment() {
     try {
-      const { data, error } = await createClient().from("payments").select("*");
+      const supabase = createClient();
+      const { data, error } = await supabase.from("payments").select("*");
 
       if (error) {
         console.log("ERRRO DANGER ERROR", error.message);
@@ -79,7 +82,8 @@ export default function PaymentPage() {
       const driverId = driver.id;
 
       // Verificar si ya existe un pago para el conductor en la fecha de hoy
-      const { data, error: fetchError } = await createClient()
+      const supabase = createClient();
+      const { data, error: fetchError } = await supabase
         .from("payments")
         .select("*")
         .eq("driver_id", driverId)
@@ -96,7 +100,8 @@ export default function PaymentPage() {
         return;
       }
       // Si no hay pago registrado para hoy, insertar el nuevo pago
-      const { error } = await createClient().from("payments").insert({
+      // Reuse the existing supabase client created above
+      const { error } = await supabase.from("payments").insert({
         payment_date: date,
         amount: driver.daily_rate,
         driver_id: driverId,
@@ -126,7 +131,8 @@ export default function PaymentPage() {
   // Función para eliminar un pago
   const deletePayment = async (paymenId: string) => {
     try {
-      const { error } = await createClient()
+      const supabase = createClient();
+      const { error } = await supabase
         .from("payments")
         .delete()
         .eq("id", paymenId);
