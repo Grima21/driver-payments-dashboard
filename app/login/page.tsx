@@ -1,6 +1,6 @@
 "use client";
 import { FormEvent, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
 type FormErrors = {
@@ -20,7 +20,8 @@ export default function LoginPage() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
+    console.log("SUBMIT EJECUTADO");
+    const supabase = createClient();
     const newErrors: FormErrors = {};
 
     if (email === "") {
@@ -55,11 +56,12 @@ export default function LoginPage() {
         email,
         password,
       });
+      const user = await supabase.auth.getUser();
+      console.log("USER", user);
       if (error) {
         setAuthError(error.message);
         return;
       }
-
       console.log("Login successfully:", data);
       setTimeout(() => {
         router.push("/dashboard/payment");

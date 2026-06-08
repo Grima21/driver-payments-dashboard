@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, FormEvent } from "react";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -23,6 +23,7 @@ export default function Driverform() {
   const [editingId, setEditingId] = useState<number | null>(null);
   async function fetchDrivers() {
     try {
+      const supabase = createClient();
       const { data, error } = await supabase.from("drivers").select("*");
 
       if (error) {
@@ -41,6 +42,7 @@ export default function Driverform() {
   }, []);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    const supabase = createClient();
     e.preventDefault();
 
     if (!name || !phone || !unitNumber || !dailyRate) {
@@ -99,6 +101,7 @@ export default function Driverform() {
   }
 
   const deleteDriver = async (id: number) => {
+    const supabase = createClient();
     const { error } = await supabase.from("drivers").delete().eq("id", id);
 
     if (error) {

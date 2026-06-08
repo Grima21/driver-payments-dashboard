@@ -1,5 +1,5 @@
 "use client";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase";
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
@@ -19,7 +19,7 @@ export default function RegisterPage() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
+    const supabase = createClient();
     const newErrors: FormErrors = {};
 
     if (email === "") {
