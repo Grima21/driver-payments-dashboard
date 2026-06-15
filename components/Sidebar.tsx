@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/dist/client/components/navigation";
+import { cerrarSesion } from "@/app/login/action";
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -28,6 +29,14 @@ export function Sidebar() {
       icon: Users,
     },
   ];
+
+  const handleLogout = async () => {
+    try {
+      await cerrarSesion();
+    } catch (error) {
+      console.error("Error al cerrar session", error);
+    }
+  };
 
   return (
     <>
@@ -57,6 +66,7 @@ export function Sidebar() {
             <div className="flex w-9 h-9 items-center justify-center rounded-lg bg-sky-500 p-2">
               <LayoutDashboard size={20} className="text-white" />
             </div>
+            s
             <h1 className="text-lg font-semibold text-white">Driver Payment</h1>
           </div>
         </div>
@@ -88,13 +98,13 @@ export function Sidebar() {
 
         {/* Logout */}
         <div className="border-t border-slate-800 p-3">
-          <Link
-            href="/login"
+          <button
+            onClick={handleLogout}
             className="flex items-center justify-center gap-2 rounded-lg text-sm fond-medium text-slate-400 transition-colors hover:bg-red-500/10 hover:text-red-400 px-3 py-2"
           >
             <LogOut size={20} />
             Cerrar sesion
-          </Link>
+          </button>
         </div>
       </aside>
     </>

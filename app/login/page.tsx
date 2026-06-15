@@ -2,6 +2,7 @@
 import { FormEvent, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { loginConServidor } from "./action";
 
 type FormErrors = {
   email?: string;
@@ -21,7 +22,7 @@ export default function LoginPage() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log("SUBMIT EJECUTADO");
-    const supabase = createClient();
+
     const newErrors: FormErrors = {};
 
     if (email === "") {
@@ -52,17 +53,12 @@ export default function LoginPage() {
     }
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      const user = await supabase.auth.getUser();
-      console.log("USER", user);
-      if (error) {
-        setAuthError(error.message);
-        return;
+      const resultado = await loginConServidor(email, password);
+
+      if (!resultado.succes) {
+        setAuthError(resultado.error || "Authentication failded");
       }
-      console.log("Login successfully:", data);
+      console.log("Login successfully:", resultado.data);
       setTimeout(() => {
         router.push("/dashboard/payment");
       }, 2000);
