@@ -12,6 +12,14 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@theme {
+  --color-navy-900: rgb(15 28 46);
+  --color-custom-dark: #141e30;
+  --color-input-custom: #1e2530;
+  --color-red-pasion: rgb(45, 26, 26);
+  --color-red-pasion2: rgb(127, 29, 29);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

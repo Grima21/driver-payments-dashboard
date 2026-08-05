@@ -8,6 +8,7 @@ import {
   LogOut,
   Menu,
   X,
+  Car,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/dist/client/components/navigation";
@@ -27,6 +28,11 @@ export function Sidebar() {
       label: "Conductores",
       href: "driver",
       icon: Users,
+    },
+    {
+      label: "Vehiculos",
+      href: "vehicle",
+      icon: Car,
     },
   ];
 
@@ -66,7 +72,7 @@ export function Sidebar() {
             <div className="flex w-9 h-9 items-center justify-center rounded-lg bg-sky-500 p-2">
               <LayoutDashboard size={20} className="text-white" />
             </div>
-            s
+
             <h1 className="text-lg font-semibold text-white">Driver Payment</h1>
           </div>
         </div>
@@ -76,11 +82,11 @@ export function Sidebar() {
           <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
             Menu
           </p>
-          {menuItems.map((item) => {
+          {menuItems.map((item, index) => {
             const isActive = pathname === item.href;
             return (
               <Link
-                key={item.href}
+                key={index}
                 href={item.href}
                 className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm ${
                   isActive
