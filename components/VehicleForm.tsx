@@ -16,6 +16,7 @@ export default function VehicleForm({
 }: VehicleFormProps) {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [errorForm, setErrorForm] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   // 1. EL CAMBIO PRINCIPAL: Borramos los 7 useState separados y creamos uno solo que tiene todo el molde.
   const [vehicleData, setVehicleData] = useState({
