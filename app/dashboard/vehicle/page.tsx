@@ -147,12 +147,9 @@ function DocBadge({ status, date }: { status: DocStatus; date: string }) {
 
 export default function VehiclePage() {
   const [vehicle, setVehicle] = useState<Vehicle[]>([]);
-  const [vehicleList, setVehicleList] = useState<any[]>([]);
-  const [vehicleToEdit, setVehicleToEdit] = useState<any>(null);
-  const [vehicleToDelete, setVehicleToDelete] = useState<any>(null);
+  const [vehicleToEdit, setVehicleToEdit] = useState<Vehicle | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
-
   async function fetchVehicle() {
     const supabase = createClient();
     const { data, error } = await supabase.from("vehicle").select("*");
@@ -173,7 +170,7 @@ export default function VehiclePage() {
 
   return (
     <div className="w-full h-full min-h-screen p-4 md:p-8 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),transparent_40%),linear-gradient(180deg,#081122_0%,#0f172a_100%)]">
-      <VehicleDetail />
+      {/* <VehicleDetail /> */}
 
       <div className="w-full max-w-375 mx-auto mt-10 md:mt-16 mb-8">
         <h1 className="text-3xl font-bold text-white mb-2 md:text-4xl">
@@ -278,7 +275,7 @@ export default function VehiclePage() {
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-2">
                         <Car
-                          className="w-3.5 h-3.5 flex-shrink-0"
+                          className="w-3.5 h-3.5 shrink-0"
                           style={{ color: "#60a5fa" }}
                         />
                         <div>

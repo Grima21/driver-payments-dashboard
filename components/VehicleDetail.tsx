@@ -1,6 +1,4 @@
 import { X, Car, ShieldCheck, Pencil } from "lucide-react";
-import { useState, useEffect } from "react";
-import { createClient } from "@/lib/supabase/client";
 
 type Vehicle = {
   id: string | number;
@@ -16,7 +14,7 @@ type Vehicle = {
 };
 
 interface VehicleDetailProps {
-  vehicle: Vehicle[];
+  vehicle: Vehicle | Vehicle[];
   onClose: () => void;
 }
 
@@ -125,69 +123,67 @@ export default function VehicleDetail({
           Detalles del Vehículo
         </h2>
 
-        <div key={vehicle.id}>
-          <div className="flex items-center gap-4 mb-6 border-b border-neutral-700/50 pb-4">
-            <span className="flex items-center justify-center w-12 h-12 rounded-full bg-sky-800 text-white">
-              <Car className="text-blue-400" size={30} />
+        <div className="flex items-center gap-4 mb-6 border-b border-neutral-700/50 pb-4">
+          <span className="flex items-center justify-center w-12 h-12 rounded-full bg-sky-800 text-white">
+            <Car className="text-blue-400" size={30} />
+          </span>
+          <div>
+            <p className="text-lg font-semibold">{vehicle.make_model}</p>
+            <p className="text-sm text-gray-400">
+              {vehicle.year} {vehicle.color}
+            </p>
+          </div>
+        </div>
+
+        <div className="w-full flex flex-col justify-center">
+          <h3 className="uppercase text-[#4b6080] font-semibold tracking-wider">
+            Datos Generales
+          </h3>
+          <div className="flex justify-between gap-4 mt-2 mb-2 border-b border-neutral-700/50 pb-1">
+            <span className="text-[#4b6080] text-md">Placa</span>
+            <span className="bg-[#1e2d45] text-[#93c5fd] px-2 py-2 rounded-md text-xs font-semibold">
+              {vehicle.license_plate}
             </span>
-            <div>
-              <p className="text-lg font-semibold">{vehicle.make_model}</p>
-              <p className="text-sm text-gray-400">
-                {vehicle.year} {vehicle.color}
-              </p>
-            </div>
           </div>
-
-          <div className="w-full flex flex-col justify-center">
-            <h3 className="uppercase text-[#4b6080] font-semibold tracking-wider">
-              Datos Generales
-            </h3>
-            <div className="flex justify-between gap-4 mt-2 mb-2 border-b border-neutral-700/50 pb-1">
-              <span className="text-[#4b6080] text-md">Placa</span>
-              <span className="bg-[#1e2d45] text-[#93c5fd] px-2 py-2 rounded-md text-xs font-semibold">
-                {vehicle.license_plate}
-              </span>
-            </div>
-            <div className="flex justify-between gap-4 mt-2 mb-2 border-b border-neutral-700/50 pb-1">
-              <span className="text-[#4b6080]">Conductor</span>
-              <span className="text-sm tracking-widest text-white">Javier</span>
-            </div>
-            <div className="flex justify-between gap-4 mt-2 mb-2 border-b border-neutral-700/50 pb-1">
-              <span className="text-[#4b6080]">Estado</span>
-              <span
-                className={`text-sm tracking-widest ${vehicle.status === "Activo" ? "text-green-500" : "text-red-500"}`}
-              >
-                {vehicle.status}
-              </span>
-            </div>
+          <div className="flex justify-between gap-4 mt-2 mb-2 border-b border-neutral-700/50 pb-1">
+            <span className="text-[#4b6080]">Conductor</span>
+            <span className="text-sm tracking-widest text-white">Javier</span>
           </div>
+          <div className="flex justify-between gap-4 mt-2 mb-2 border-b border-neutral-700/50 pb-1">
+            <span className="text-[#4b6080]">Estado</span>
+            <span
+              className={`text-sm tracking-widest ${vehicle.status === "Activo" ? "text-green-500" : "text-red-500"}`}
+            >
+              {vehicle.status}
+            </span>
+          </div>
+        </div>
 
+        <div>
+          <h3 className="uppercase text-[#4b6080] font-semibold mt-4 mb-4 tracking-wider">
+            Documentos y Vencimientos
+          </h3>
+
+          {/* 4. AQUÍ REEMPLAZAMOS TODO EL HTML REPETIDO POR EL MINICOMPONENTE */}
           <div>
-            <h3 className="uppercase text-[#4b6080] font-semibold mt-4 mb-4 tracking-wider">
-              Documentos y Vencimientos
-            </h3>
-
-            {/* 4. AQUÍ REEMPLAZAMOS TODO EL HTML REPETIDO POR EL MINICOMPONENTE */}
-            <div>
-              <DocumentRow
-                title="Póliza de seguro"
-                date={vehicle.insurance_due_date}
-              />
-              <DocumentRow title="Placa" date={vehicle.plate_due_date} />
-              <DocumentRow
-                title="Revisión técnica"
-                date={vehicle.maintenance_date}
-              />
-            </div>
+            <DocumentRow
+              title="Póliza de seguro"
+              date={vehicle.insurance_due_date}
+            />
+            <DocumentRow title="Placa" date={vehicle.plate_due_date} />
+            <DocumentRow
+              title="Revisión técnica"
+              date={vehicle.maintenance_date}
+            />
           </div>
+        </div>
 
-          <div>
-            <h3 className="uppercase text-[#4b6080] font-semibold mt-4 mb-4 tracking-wider">
-              Observaciones
-            </h3>
-            <div className="flex justify-center items-center text-[#9ca3af] text-md border border-[#1e2d45] bg-[#141e30] rounded-md p-6">
-              <p>{vehicle.maintenance_note}</p>
-            </div>
+        <div>
+          <h3 className="uppercase text-[#4b6080] font-semibold mt-4 mb-4 tracking-wider">
+            Observaciones
+          </h3>
+          <div className="flex justify-center items-center text-[#9ca3af] text-md border border-[#1e2d45] bg-[#141e30] rounded-md p-6">
+            <p>{vehicle.maintenance_note}</p>
           </div>
         </div>
 
