@@ -232,7 +232,9 @@ export default function MaintenancePage() {
 
         {isModalOpen && (
           <MaintenanceForm
-            onSave={addMaintenance}
+            onSave={async (newRecord) => {
+              await addMaintenance(newRecord);
+            }}
             onClose={() => setIsModalOpen(false)}
           />
         )}
