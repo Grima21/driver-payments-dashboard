@@ -9,6 +9,7 @@ import {
   Menu,
   X,
   Car,
+  Wrench,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/dist/client/components/navigation";
@@ -33,6 +34,11 @@ export function Sidebar() {
       label: "Vehiculos",
       href: "vehicle",
       icon: Car,
+    },
+    {
+      label: "Mantenimiento",
+      href: "maintenance",
+      icon: Wrench,
     },
   ];
 

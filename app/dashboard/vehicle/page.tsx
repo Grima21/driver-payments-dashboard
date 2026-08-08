@@ -273,12 +273,12 @@ export default function VehiclePage() {
 
                     {/* Vehículo */}
                     <td className="px-5 py-3">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center  gap-2">
                         <Car
                           className="w-3.5 h-3.5 shrink-0"
                           style={{ color: "#60a5fa" }}
                         />
-                        <div>
+                        <div className="flex flex-col">
                           <span
                             className="font-medium"
                             style={{ color: "#e2e8f0" }}
