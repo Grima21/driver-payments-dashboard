@@ -10,6 +10,7 @@ import {
   X,
   Car,
   Wrench,
+  HandCoins,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/dist/client/components/navigation";
@@ -22,23 +23,28 @@ export function Sidebar() {
   const menuItems = [
     {
       label: "Pagos",
-      href: "payment",
+      href: "/dashboard/payment",
       icon: CreditCard,
     },
     {
       label: "Conductores",
-      href: "driver",
+      href: "/dashboard/driver",
       icon: Users,
     },
     {
       label: "Vehiculos",
-      href: "vehicle",
+      href: "/dashboard/vehicle",
       icon: Car,
     },
     {
       label: "Mantenimiento",
-      href: "maintenance",
+      href: "/dashboard/maintenance",
       icon: Wrench,
+    },
+    {
+      label: "Deuda",
+      href: "/dashboard/debts",
+      icon: HandCoins,
     },
   ];
 
@@ -96,12 +102,19 @@ export function Sidebar() {
                 href={item.href}
                 className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm ${
                   isActive
-                    ? "bg-slate-800 text-white"
-                    : "text-slate-200 hover:bg-slate-800"
+                    ? "bg-slate-600/15 text-blue-400 border border-blue-500/20 font-semibold"
+                    : "text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 font-medium"
                 }`}
                 onClick={() => setIsOpen(false)}
               >
-                <item.icon size={20} className="text-slate-300" />
+                <item.icon
+                  size={20}
+                  className={
+                    isActive
+                      ? "text-blue-400"
+                      : "text-slate-400 group-hover:text-slate-200"
+                  }
+                />
                 <span>{item.label}</span>
               </Link>
             );

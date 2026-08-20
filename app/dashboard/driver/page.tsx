@@ -3,7 +3,17 @@
 import { useState, useEffect, FormEvent, use } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
-import { ArrowLeft, Plus, Pen, Trash, Phone } from "lucide-react";
+import {
+  ArrowLeft,
+  Plus,
+  Pen,
+  Trash,
+  Phone,
+  UserPlus,
+  UserRoundCheck,
+  CircleAlert,
+  Car,
+} from "lucide-react";
 
 interface Driver {
   id: number;
@@ -169,9 +179,12 @@ export default function Driverform() {
         {/* EStadistica de conductores*/}
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-4">
           <div className="bg-[#041b18] p-10 rounded-xl border border-green-900">
-            <h2 className="text-lg font-semibold text-gray-400">
-              Total conductores
-            </h2>
+            <div className="flex gap-4 item-center">
+              <UserRoundCheck className="text-white" />
+              <h2 className="text-lg font-semibold text-gray-400">
+                Total conductores
+              </h2>
+            </div>
             <p className="text-3xl font-bold text-[#00d091] mt-5">
               {drivers.length}
             </p>
@@ -190,7 +203,9 @@ export default function Driverform() {
             <h2 className="text-lg font-semibold text-gray-400">
               Conductores Inactivos
             </h2>
-            <p className="text-3xl font-bold text-white mt-5">0</p>
+            <p className="text-3xl font-bold text-white mt-5">
+              {drivers.filter((d) => d.status === "inactivo").length}
+            </p>
           </div>
         </div>
         <div className="flex justify-end p-8">
@@ -201,7 +216,7 @@ export default function Driverform() {
             }}
             className="flex items-center justify-center gap-2 bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg border border-gray-600 cursor-pointer hover:bg-blue-400 transition duration-300 ease-in-out"
           >
-            <Plus /> Agregar Conductor
+            <UserPlus /> Agregar Conductor
           </button>
         </div>
 
@@ -297,7 +312,7 @@ export default function Driverform() {
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
                   >
-                    <option value="opciones">Opciones</option>
+                    <option value="">Selecciona un estado</option>
                     <option value="activo">Activo</option>
                     <option value="inactivo">Inactivo</option>
                   </select>

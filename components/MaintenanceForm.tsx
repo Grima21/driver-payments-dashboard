@@ -58,7 +58,6 @@ export default function MaintenanceForm({
             Agregar Mantenimiento
           </h2>
 
-          {/* 5. FALTABA EL TÍTULO: Lo agregué aquí */}
           <div className="w-full mb-4">
             <label className="mb-2 text-sm text-gray-400">
               Título del trabajo

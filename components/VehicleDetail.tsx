@@ -111,6 +111,7 @@ export default function VehicleDetail({
   const vehicleItem = Array.isArray(vehicle) ? vehicle[0] : vehicle;
 
   if (!vehicle) return null;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-[#0f1c2e] rounded-lg shadow-lg w-full max-w-xl m-auto p-8 relative flex flex-col justify-center">
@@ -188,10 +189,6 @@ export default function VehicleDetail({
             <p>{vehicleItem.maintenance_note}</p>
           </div>
         </div>
-        <button className="p-4 mt-8 rounded-xl bg-blue-500 text-white text-md font-semibold flex items-center justify-center gap-4 hover:bg-blue-600 transition-colors duration-300 cursor-pointer">
-          <Pencil size={18} />
-          Editar Vehiculo
-        </button>
       </div>
     </div>
   );
