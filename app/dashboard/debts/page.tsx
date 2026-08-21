@@ -47,16 +47,14 @@ interface DebtPayment {
 
 interface DebtCardProps {
   debt: Debt;
-  onRefresh: () => void;
-  onClose: () => void;
-  onSuccess: () => void;
+  onRefresh: () => Promise<void>;
 }
 
 interface AddPaymentModalProps {
   debt: Debt;
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: () => void;
+  onSuccess: () => void | Promise<void>;
 }
 
 interface HistorialPaymentProps {
@@ -181,7 +179,10 @@ export default function DebtPage() {
         <CreateDebModal
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
-          onSuccess={() => setIsOpen(false)}
+          onSuccess={async () => {
+            await fetchDebts();
+            setIsOpen(false);
+          }}
         />
       </div>
     </div>
@@ -338,13 +339,7 @@ function CreateDebModal({ isOpen, onClose, onSuccess }: ModalProps) {
   );
 }
 
-function DebtCard({
-  debt,
-  payments,
-  onRefresh,
-  onSuccess,
-  onClose,
-}: DebtCardProps) {
+function DebtCard({ debt, onRefresh }: DebtCardProps) {
   async function handleDelete() {
     const confirmed = window.confirm(
       `Estas seguro que desea eliminar la deuda de ${debt.drivers?.name}?`,
@@ -358,7 +353,7 @@ function DebtCard({
       console.log("Error al eliminar la deuda:", error);
       alert("Hubo un error al eliminar la deuda");
     } else {
-      onRefresh();
+      await onRefresh();
     }
   }
 
@@ -485,9 +480,9 @@ function DebtCard({
         <AddPaymentModal
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
-          onSuccess={() => {
+          onSuccess={async () => {
             setIsOpen(false);
-            onRefresh();
+            await onRefresh();
           }}
           debt={debt}
         />
@@ -532,7 +527,7 @@ function AddPaymentModal({
       setAmount("");
       setDate("");
       setNote("");
-      onSuccess?.();
+      await onSuccess();
     }
   }
 
