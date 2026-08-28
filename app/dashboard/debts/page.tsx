@@ -10,9 +10,8 @@ import {
   History,
   Trash2,
 } from "lucide-react";
-import { use, useEffect, useEffectEvent, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { StringDecoder } from "string_decoder";
 
 interface ModalProps {
   isOpen: boolean;
@@ -67,19 +66,34 @@ export default function DebtPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [debts, setDebts] = useState<Debt[]>([]);
 
-  async function fetchDebts() {
+  const fetchDebts = useCallback(async () => {
     const { data, error } = await supabase
       .from("debts")
       .select(`*, drivers(id,name), debt_payment(id,amount, payment_date)`);
+
     if (error) {
       console.error("Error al cargar deudas:", error);
       return;
     }
-    if (data) setDebts(data);
-  }
+
+    setDebts(data ?? []);
+  }, []);
 
   useEffect(() => {
-    fetchDebts();
+    async function loadInitialDebts() {
+      const { data, error } = await supabase
+        .from("debts")
+        .select(`*, drivers(id,name), debt_payment(id,amount, payment_date)`);
+
+      if (error) {
+        console.error("Error al cargar deudas:", error);
+        return;
+      }
+
+      setDebts(data ?? []);
+    }
+
+    void loadInitialDebts();
   }, []);
 
   const totalDeudores = debts.length;
@@ -194,7 +208,6 @@ function CreateDebModal({ isOpen, onClose, onSuccess }: ModalProps) {
   const [driverId, setDriverId] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
   const [description, setDescription] = useState("");
-  const [remaining, setRemaining] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
   const [dailyAmount, setDaily_amount] = useState("");
   const [date, setDate] = useState("");
@@ -208,17 +221,19 @@ function CreateDebModal({ isOpen, onClose, onSuccess }: ModalProps) {
       setDebt("data");
     }
   }
-  async function fetchDriver() {
-    const { data, error } = await supabase.from("drivers").select("id, name");
-    if (!error && data) {
-      setDrivers(data);
-    }
-  }
 
   useEffect(() => {
-    if (isOpen) {
-      fetchDriver();
+    if (!isOpen) return;
+
+    async function fetchDriver() {
+      const { data, error } = await supabase.from("drivers").select("id, name");
+
+      if (!error && data) {
+        setDrivers(data);
+      }
     }
+
+    void fetchDriver();
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -606,7 +621,7 @@ function HistorialPayment({ debt, isOpen, onClose }: HistorialPaymentProps) {
   const supabase = createClient();
 
   useEffect(() => {
-    if (isOpen && debt?.id) {
+    if (isOpen || debt?.id) {
       async function fetchDebtPayment() {
         setLoading(true);
         const { data, error } = await supabase

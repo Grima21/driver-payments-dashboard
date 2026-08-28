@@ -87,7 +87,7 @@ export default function MaintenancePage() {
 
         {/* Estadísticas */}
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="bg-[#1f1500]  p-8 rounded-xl border border-[#78350f]">
+          <div className="bg-[#1f1500]   border-[#78350f] p-8 rounded-xl border">
             <div className="flex items-center gap-2">
               <DollarSign className="w-5 h-5 text-[#fbbf24]" />
               <h2 className="text-lg font-semibold text-[#94a3b8]">

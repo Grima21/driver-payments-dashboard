@@ -11,6 +11,7 @@ import {
   Car,
   Wrench,
   HandCoins,
+  LayoutDashboardIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/dist/client/components/navigation";
@@ -21,6 +22,11 @@ export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
+    {
+      label: "Dashboard",
+      href: "/dashboard",
+      icon: LayoutDashboardIcon,
+    },
     {
       label: "Pagos",
       href: "/dashboard/payment",
@@ -85,7 +91,9 @@ export function Sidebar() {
               <LayoutDashboard size={20} className="text-white" />
             </div>
 
-            <h1 className="text-lg font-semibold text-white">Driver Payment</h1>
+            <a href="/dashboard" className="text-lg font-semibold text-white">
+              Driver Payment
+            </a>
           </div>
         </div>
 

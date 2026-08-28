@@ -16,7 +16,6 @@ export async function createClient() {
           try {
             const unDiaEnMilisegundos = 24 * 60 * 60 * 1000;
             const fechaExpiracion = new Date(Date.now() + unDiaEnMilisegundos);
-
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, {
                 ...options,

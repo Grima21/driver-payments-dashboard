@@ -60,7 +60,7 @@ export default function LoginPage() {
       }
       console.log("Login successfully:", resultado.data);
       setTimeout(() => {
-        router.push("/dashboard/payment");
+        router.push("/dashboard");
       }, 2000);
       setSuccessMessage("Login Successfully");
     } catch (error) {
