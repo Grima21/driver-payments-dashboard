@@ -1,86 +1,45 @@
-# Driver Payments Dashboard
+# 🚖 Taxi Fleet Management & Driver Payments Dashboard
 
-A web application for managing and tracking daily driver payments.
+Un panel de administración full-stack diseñado para centralizar la gestión operativa de una flota de taxis: registro de pagos diarios por conductor, control de deudas, seguimiento de mantenimiento y alertas automáticas de vencimiento de documentos.
 
-## Features
+---
 
-- Driver payment registration
-- Monthly payment tracking
-- Daily payment summary
-- Monthly payment totals
-- Payment validation to prevent duplicate records
-- Dashboard with real-time statistics
-- Secure authentication with Supabase
+## 🎯 Problema & Solución
 
-## Tech Stack
+- **El Problema:** La gestión manual en hojas de cálculo dificulta auditar los ingresos diarios, rastrear saldos pendientes y prever el vencimiento de pólizas de seguro o inspecciones vehiculares, generando riesgos operativos y pérdida de ingresos.
+- **La Solución:** Una plataforma web en tiempo real que consolida métricas de recaudación mensual y diaria, automatiza el cálculo de alertas preventivas y simplifica la gestión del flujo de caja.
 
-- Next.js
-- React
-- Supabase
-- Tailwind CSS
-- TypeScript
+---
 
-## Installation
+## ✨ Características Principales
 
-Clone the repository:
+- **Monitoreo de Pagos:** Métricas de recaudación mensual, ingresos del día y listado de transacciones recientes con formato de moneda local y relación directa con conductores.
+- **Alertas de Documentación:** Sistema que calcula días restantes o vencidos para pólizas de seguro, placas/marchamos y revisiones técnicas por vehículo.
+- **Control de Deudas:** Registro y seguimiento de acuerdos de pago por conductor con cálculo de saldos pendientes.
+- **Visualización de Datos:** Gráfico interactivo para la tendencia de recaudación semanal.
 
-```bash
-git clone https://github.com/YOUR_USERNAME/driver-payments-dashboard.git
-```
+---
 
-Install dependencies:
+## 🛠️ Tech Stack
 
-```bash
-npm install
-```
+- **Frontend:** Next.js (App Router), React, Tailwind CSS, Lucide React, Recharts.
+- **Backend & Base de Datos:** Supabase (PostgreSQL, Row Level Security).
+- **Herramientas & Despliegue:** TypeScript, ESLint, Vercel.
 
-Create a `.env.local` file and add:
+---
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
+## 🏗️ Decisiones de Arquitectura & Rendimiento
 
-Run the development server:
+- **Server Components:** Recuperación de datos directo en el servidor para reducir el JavaScript enviado al navegador y acelerar la carga inicial.
+- **Consultas Paralelas (`Promise.all`):** Optimización del tiempo de respuesta del servidor mediante la ejecución concurrente de múltiples consultas a la base de datos.
+- **Normalización de Datos:** Transformación y filtrado de estructuras complejas en el servidor antes de enviarlas a los componentes de la interfaz.
 
-```bash
-npm run dev
-```
+---
 
-Open:
+## 🚀 Configuración Local
 
-```text
-http://localhost:3000
-```
-
-## Project Overview
-
-This application was built to simplify the management of daily driver payments through an interactive dashboard.
-
-Users can:
-
-- Track daily payments
-- Monitor monthly totals
-- View payment statistics
-- Manage driver records
-- Prevent duplicate payment entries
-
-## Future Improvements
-
-### Version 1.1
-
-- Edit payments
-- Delete payments
-- Monthly navigation
-- Improved dashboard UI
-
-### Version 1.2
-
-- Partial payments
-- Payment notes
-- Variable payment amounts
-- Export reports
-
-## License
-
-This project is available for educational and portfolio purposes.
+1. **Clonar el repositorio:**
+   ```bash
+   git clone https://github.com/Grima21/driver-payments-dashboard.git
+   cd driver-payments-dashboard
+   ```
