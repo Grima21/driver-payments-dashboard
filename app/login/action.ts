@@ -3,7 +3,10 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-export async function loginConServidor(email: string, password: string) {
+export async function loginConServidor(formData: FormData) {
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+
   const supabase = createClient();
 
   const { data, error } = await (

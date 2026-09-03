@@ -49,6 +49,7 @@ export default function RegisterPage() {
 
     setIsLoading(true);
     setAuthError("");
+    setSuccessMessage("");
 
     try {
       const { data, error } = await supabase.auth.signUp({
@@ -62,17 +63,19 @@ export default function RegisterPage() {
       });
 
       if (error) {
-        return setAuthError(error.message);
+        setAuthError(error.message);
+        setIsLoading(false);
+        return;
       }
 
       console.log("User registered successfully:", data);
-      setSuccessMessage("User registered successfully");
+
       setTimeout(() => {
         route.push("/login");
-      }, 2000);
-    } catch (err) {
+      }, 1500);
+      setSuccessMessage("User registered successfully");
+    } catch (error) {
       setAuthError("An unexpected error occurred. Please try again later.");
-    } finally {
       setIsLoading(false);
     }
   }
@@ -184,9 +187,10 @@ export default function RegisterPage() {
             />
             <button
               type="submit"
+              disabled={isLoading}
               className="w-full mt-4 bg-[#3b82f6] text-white py-2 px-4 rounded-lg hover:bg-[#2c65c0] focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer transition ease-in"
             >
-              Continue
+              {isLoading ? <span> Ingresando...</span> : "Continue"}
             </button>
             <p className="text-red-500  min-h-5 mt-4">{error.password}</p>
             {authError && <p className="text-red-500 mt-4">{authError}</p>}

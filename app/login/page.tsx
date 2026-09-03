@@ -1,6 +1,5 @@
 "use client";
 import { FormEvent, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { loginConServidor } from "./action";
 import { Car, CreditCard, Wrench, HandCoins } from "lucide-react";
@@ -45,27 +44,27 @@ export default function LoginPage() {
 
     setIsLoading(true);
     setAuthError("");
-
-    if (!email || !password) {
-      setAuthError("Please enter both email and password.");
-      setIsLoading(false);
-      return;
-    }
+    setSuccessMessage("");
 
     try {
-      const resultado = await loginConServidor(email, password);
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("password", password);
+
+      const resultado = await loginConServidor(formData);
 
       if (!resultado.succes) {
         setAuthError(resultado.error || "Authentication failded");
+        setIsLoading(false);
+        return;
       }
       console.log("Login successfully:", resultado.data);
       setTimeout(() => {
         router.push("/dashboard");
-      }, 2000);
+      }, 1500);
       setSuccessMessage("Login Successfully");
     } catch (error) {
       setAuthError("Something went wrong. Please try again later.");
-    } finally {
       setIsLoading(false);
     }
   }
@@ -163,9 +162,10 @@ export default function LoginPage() {
             />
             <button
               type="submit"
+              disabled={isLoading}
               className="w-full mt-4 bg-[#3b82f6] text-white py-2 px-4 rounded-lg hover:bg-[#2c65c0] focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer transition ease-in"
             >
-              Continue
+              {isLoading ? <span>Ingresando...</span> : "Continue"}
             </button>
             <p className="text-red-500  min-h-5 mt-4">{error.password}</p>
             {authError && <p className="text-red-500 mt-4">{authError}</p>}
