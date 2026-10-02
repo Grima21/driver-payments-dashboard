@@ -2,7 +2,8 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { loginConServidor } from "./action";
-import { Car, CreditCard, Wrench, HandCoins } from "lucide-react";
+import { Car, CreditCard, Wrench, HandCoins, Play } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 type FormErrors = {
   email?: string;
@@ -16,8 +17,28 @@ export default function LoginPage() {
   const [authError, setAuthError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [loadingDemo, setLoadingDemo] = useState(false);
 
   const router = useRouter();
+  const supabase = createClient();
+  const handleDemoLogin = async () => {
+    setLoadingDemo(true);
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: "prueba2001@gmail.com",
+        password: "ivilobito2001",
+      });
+      if (error) {
+        alert("Error al acceder al demo: " + error.message);
+        setLoadingDemo(false);
+        return;
+      }
+      router.push("/dashboard");
+    } catch (error) {
+      alert("Error al acceder al demo: " + error);
+      setLoadingDemo(false);
+    }
+  };
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -185,13 +206,33 @@ export default function LoginPage() {
             <img className="w-5 h-5" src="/google(1).svg" alt="logo Google" />
             Google
           </button>
+
+          <div className="bg-[#3b82f60f] border border-dashed border-[#3b82f659] p-4 rounded-xl mt-6">
+            <div className="flex items-center gap-2 mb-1">
+              <Play className="w-3 h-3 text-[#60a5fa]" />
+              <p className="text-[#93c5fd] text-xs font-semibold">
+                ¿Solo quiere ver como funciona?
+              </p>
+            </div>
+            <p className="text-[#6b8aaa] text-xs mb-3 ">
+              Entra en modo demo y explora la app con datos de ejemplo, sin
+              registrarte.
+            </p>
+            <button
+              className="w-full border border-[#3b82f6] text-[#60a5fa] font-semibold text-xs py-2 rounded-lg flex items-center justify-center gap-2 cursor-pointer hover:bg-[#3b82f626] transition ease-in disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={handleDemoLogin}
+              disabled={loadingDemo}
+            >
+              <Play /> Ver demo sin registrarme
+            </button>
+          </div>
           <p className="text-center text-base md:text-md text-gray-500">
             ¿No tienes cuenta?{" "}
             <a
               href="/register"
               className="text-blue-400 text-sm hover:text-blue-600"
             >
-              Registrate
+              Regístrate
             </a>
           </p>
         </div>
